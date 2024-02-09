@@ -1,0 +1,11 @@
+framework module SeamSDK {
+  umbrella header "SeamSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module SeamSDK.Swift {
+  header "SeamSDK-Swift.h"
+  requires objc
+}

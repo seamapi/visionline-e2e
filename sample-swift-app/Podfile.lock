@@ -1,0 +1,41 @@
+PODS:
+  - BerTlv (0.2.5)
+  - CocoaLumberjack (3.8.2):
+    - CocoaLumberjack/Core (= 3.8.2)
+  - CocoaLumberjack/Core (3.8.2)
+  - CoreBluetoothMock (0.17.0)
+  - JSONModel (1.8.0)
+  - Mixpanel (5.0.2)
+  - SeamSDK (0.0.3):
+    - BerTlv
+    - CocoaLumberjack
+    - CoreBluetoothMock
+    - JSONModel
+    - Mixpanel
+
+DEPENDENCIES:
+  - SeamSDK (from `SeamSDK-0.0.3/SeamSDK.podspec`)
+
+SPEC REPOS:
+  trunk:
+    - BerTlv
+    - CocoaLumberjack
+    - CoreBluetoothMock
+    - JSONModel
+    - Mixpanel
+
+EXTERNAL SOURCES:
+  SeamSDK:
+    :path: SeamSDK-0.0.3/SeamSDK.podspec
+
+SPEC CHECKSUMS:
+  BerTlv: c94b89a7b93bf8c1881691a8d105ec87a4a10759
+  CocoaLumberjack: f8d89a516e7710fdb2e9b8f1560b16ec6040eef0
+  CoreBluetoothMock: a57a2b19d47cea663e34c3d8e62a5ecba37b0a3e
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
+  Mixpanel: 62e5fb088d56a7ba1369aeb335d0bff7ebae061e
+  SeamSDK: 4ee1ac1e82960871fbf65ba564e8db47127f64ff
+
+PODFILE CHECKSUM: 947c3adf9e7242dae913061f6c497b5639e2021f
+
+COCOAPODS: 1.15.2
