@@ -76,25 +76,6 @@ func main() {
 		log.Panic(vErr)
 	}
 
-	// Create Visionline Mobile Credential: Creates a mobile key which will be provisioned to the Mobile Sdk
-	isMultiPhoneSyncCredential := true
-	endsAt := time.Now().Add(7 * 24 * time.Hour).Format("2006-01-02T15:04:00Z")
-	isOverrideKey := true
-	_, cErr := client.Acs.Credentials.Create(context.Background(), &acs.CredentialsCreateRequest{
-		AcsUserId:                  visionlineUserResponse.AcsUser.AcsUserId,
-		AccessMethod:               "mobile_key",
-		IsMultiPhoneSyncCredential: &isMultiPhoneSyncCredential,
-		EndsAt:                     &endsAt,
-		VisionlineMetadata: &acs.CredentialsCreateRequestVisionlineMetadata{
-			CardFormat:    acs.CredentialsCreateRequestVisionlineMetadataCardFormatRfid48.Ptr(),
-			IsOverrideKey: &isOverrideKey,
-		},
-	})
-
-	if cErr != nil {
-		log.Panic(cErr)
-	}
-
 	// List all entrances and gets the first available BLE entrance to grant access to the user
 	// You can grant users to any entrance, but the user won't get access until a credential with the appropriate
 	// type has been provisioned
@@ -125,6 +106,25 @@ func main() {
 				log.Panic(grantErr)
 			}
 		}
+	}
+
+	// Create Visionline Mobile Credential: Creates a mobile key which will be provisioned to the Mobile Sdk with the entrance grants above
+	isMultiPhoneSyncCredential := true
+	endsAt := time.Now().Add(7 * 24 * time.Hour).Format("2006-01-02T15:04:00Z")
+	isOverrideKey := true
+	_, cErr := client.Acs.Credentials.Create(context.Background(), &acs.CredentialsCreateRequest{
+		AcsUserId:                  visionlineUserResponse.AcsUser.AcsUserId,
+		AccessMethod:               "mobile_key",
+		IsMultiPhoneSyncCredential: &isMultiPhoneSyncCredential,
+		EndsAt:                     &endsAt,
+		VisionlineMetadata: &acs.CredentialsCreateRequestVisionlineMetadata{
+			CardFormat:    acs.CredentialsCreateRequestVisionlineMetadataCardFormatRfid48.Ptr(),
+			IsOverrideKey: &isOverrideKey,
+		},
+	})
+
+	if cErr != nil {
+		log.Panic(cErr)
 	}
 
 	// Create client session to be used on the mobilesdk to register the phone and receive bluetooth mobile key
