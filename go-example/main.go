@@ -9,13 +9,14 @@ import (
 
 	api "github.com/seamapi/go"
 	acs "github.com/seamapi/go/acs"
+	"github.com/seamapi/go/client"
 	seamclient "github.com/seamapi/go/client"
 	useridentities "github.com/seamapi/go/useridentities"
 )
 
 func main() {
 
-	client := seamclient.NewClient(seamclient.WithApiKey("seam_Xb1zvpL6_2z3xkcwtqKNhA7iZzL1otGqm"))
+	client := seamclient.NewClient(seamclient.WithApiKey("seam_qxf5AKUR_A2LK1KNB5DfkTv5ouxaTNiJj"), client.WithBaseURL("http://localhost:3020"))
 
 	// Create Connect Webview for seam bridge, assa abloy, visionline
 	// ...
@@ -110,12 +111,14 @@ func main() {
 
 	// Create Visionline Mobile Credential: Creates a mobile key which will be provisioned to the Mobile Sdk with the entrance grants above
 	isMultiPhoneSyncCredential := true
+	startsAt := time.Now().Format("2006-01-02T15:04:00Z")
 	endsAt := time.Now().Add(7 * 24 * time.Hour).Format("2006-01-02T15:04:00Z")
 	isOverrideKey := true
 	_, cErr := client.Acs.Credentials.Create(context.Background(), &acs.CredentialsCreateRequest{
 		AcsUserId:                  visionlineUserResponse.AcsUser.AcsUserId,
 		AccessMethod:               "mobile_key",
 		IsMultiPhoneSyncCredential: &isMultiPhoneSyncCredential,
+		StartsAt:                   &startsAt,
 		EndsAt:                     &endsAt,
 		VisionlineMetadata: &acs.CredentialsCreateRequestVisionlineMetadata{
 			CardFormat:    acs.CredentialsCreateRequestVisionlineMetadataCardFormatRfid48.Ptr(),
